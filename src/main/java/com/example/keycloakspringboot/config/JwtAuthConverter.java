@@ -1,4 +1,4 @@
-package com.example.keycloakspringboot;
+package com.example.keycloakspringboot.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.convert.converter.Converter;

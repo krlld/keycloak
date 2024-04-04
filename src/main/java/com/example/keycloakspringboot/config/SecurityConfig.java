@@ -1,4 +1,4 @@
-package com.example.keycloakspringboot;
+package com.example.keycloakspringboot.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -20,8 +20,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf().disable()
-                .authorizeHttpRequests().anyRequest().authenticated();
+                .csrf().disable();
         httpSecurity
                 .oauth2ResourceServer()
                 .jwt()
