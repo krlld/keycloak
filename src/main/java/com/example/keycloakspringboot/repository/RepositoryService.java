@@ -9,11 +9,11 @@ import java.util.Optional;
 
 public interface RepositoryService<E, I> {
 
-    Optional<E> create(E entity);
+    E create(E entity);
 
     Optional<E> find(I id);
 
-    Optional<E> update(E entity);
+    E update(E entity);
 
     void delete(I id);
 

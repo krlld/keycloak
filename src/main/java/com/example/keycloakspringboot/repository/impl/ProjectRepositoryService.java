@@ -25,8 +25,8 @@ public class ProjectRepositoryService implements RepositoryService<Project, Long
 
     @Override
     @Transactional
-    public Optional<Project> create(Project entity) {
-        return Optional.of(projectRepository.save(entity));
+    public Project create(Project entity) {
+        return projectRepository.save(entity);
     }
 
     @Override
@@ -37,8 +37,8 @@ public class ProjectRepositoryService implements RepositoryService<Project, Long
 
     @Override
     @Transactional
-    public Optional<Project> update(Project entity) {
-        return Optional.of(projectRepository.save(entity));
+    public Project update(Project entity) {
+        return projectRepository.save(entity);
     }
 
     @Override
