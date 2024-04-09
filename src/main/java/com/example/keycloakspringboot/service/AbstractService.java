@@ -4,14 +4,13 @@ import com.example.keycloakspringboot.dto.FilterRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Optional;
 import java.util.List;
 
 public interface AbstractService<D, I> {
 
     D create(D entity);
 
-    Optional<D> find(I id);
+    D find(I id);
 
     D update(D entity);
 

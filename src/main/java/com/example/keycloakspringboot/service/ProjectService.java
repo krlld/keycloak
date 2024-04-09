@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.example.keycloakspringboot.exception.NotFountException;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,9 +40,11 @@ public class ProjectService implements AbstractService<ProjectDto, Long> {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<ProjectDto> find(Long id) {
-        return repositoryService.find(id)
-                .map(projectMapper::toProjectDto);
+    public ProjectDto find(Long id) {
+        Optional<Project> optionalProject = repositoryService.find(id);
+        Project project = optionalProject
+                .orElseThrow(() -> new NotFountException("Project with id = " + id + " not found"));
+        return projectMapper.toProjectDto(project);
     }
 
     @Override
