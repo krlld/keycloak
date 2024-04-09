@@ -20,7 +20,7 @@ public class ProjectController {
 
     private final ServiceInterface<ProjectDto, Long> serviceInterface;
 
-    public ProjectController(@Qualifier("projectService") ServiceInterface<ProjectDto, Long> serviceInterface) {
+    public ProjectController(ServiceInterface<ProjectDto, Long> serviceInterface) {
         this.serviceInterface = serviceInterface;
     }
 
