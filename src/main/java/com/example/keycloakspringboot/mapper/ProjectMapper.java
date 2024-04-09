@@ -5,9 +5,9 @@ import com.example.keycloakspringboot.entity.Project;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface ProjectMapper {
+public interface ProjectMapper extends MapperService<Project, ProjectDto> {
 
-    ProjectDto toProjectDto(Project project);
+    ProjectDto toDto(Project project);
 
-    Project toProject(ProjectDto projectDto);
+    Project toEntity(ProjectDto projectDto);
 }
