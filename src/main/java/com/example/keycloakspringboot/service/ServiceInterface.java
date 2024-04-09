@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public interface AbstractService<D, I> {
+public interface ServiceInterface<D, I> {
 
     D create(D entity);
 

@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class ProjectService implements AbstractService<ProjectDto, Long> {
+public class ProjectService implements ServiceInterface<ProjectDto, Long> {
 
     private final RepositoryService<Project, Long> repositoryService;
 

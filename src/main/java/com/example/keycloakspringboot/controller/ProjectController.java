@@ -2,7 +2,7 @@ package com.example.keycloakspringboot.controller;
 
 import com.example.keycloakspringboot.dto.ProjectDto;
 import com.example.keycloakspringboot.dto.ProjectFilterDto;
-import com.example.keycloakspringboot.service.AbstractService;
+import com.example.keycloakspringboot.service.ServiceInterface;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,16 +18,16 @@ import java.util.List;
 @RequestMapping("/projects")
 public class ProjectController {
 
-    private final AbstractService<ProjectDto, Long> abstractService;
+    private final ServiceInterface<ProjectDto, Long> serviceInterface;
 
-    public ProjectController(@Qualifier("projectService") AbstractService<ProjectDto, Long> abstractService) {
-        this.abstractService = abstractService;
+    public ProjectController(@Qualifier("projectService") ServiceInterface<ProjectDto, Long> serviceInterface) {
+        this.serviceInterface = serviceInterface;
     }
 
     @PreAuthorize("hasAnyRole('hr')")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<ProjectDto> findAll(@RequestBody ProjectFilterDto projectFilterDto) {
-        return abstractService.findList(projectFilterDto);
+        return serviceInterface.findList(projectFilterDto);
     }
 }
