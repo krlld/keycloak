@@ -23,7 +23,7 @@ public class ServiceExceptionHandlerAspect {
         } catch (Exception e) {
             String message = "Something wrong";
             log.warn(message);
-            return new RuntimeException(message);
+            throw new RuntimeException(message);
         }
     }
 
