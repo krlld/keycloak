@@ -3,7 +3,6 @@ package com.example.keycloakspringboot.exception.handler;
 import com.example.keycloakspringboot.dto.ApiErrorResponse;
 import com.example.keycloakspringboot.exception.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
