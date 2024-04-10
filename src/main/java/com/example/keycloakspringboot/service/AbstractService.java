@@ -10,40 +10,37 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-
 
 @RequiredArgsConstructor
 public abstract class AbstractService<E, D, I> implements ServiceInterface<D, I> {
 
     protected final RepositoryService<E, I> repositoryService;
+
     protected final MapperService<E, D> mapperService;
 
     @Override
     @Transactional
     public D create(D dto) {
-        throw new RuntimeException("vfvf");
-//        E entity = mapperService.toEntity(dto);
-//        E savedEntity = repositoryService.create(entity);
-//        return mapperService.toDto(savedEntity);
+        E entity = mapperService.toEntity(dto);
+        repositoryService.create(entity);
+        return mapperService.toDto(entity);
     }
 
     @Override
     @Transactional(readOnly = true)
     public D find(I id) {
-        Optional<E> optionalEntity = repositoryService.find(id);
-        E entity = optionalEntity
+        return repositoryService.find(id)
+                .map(mapperService::toDto)
                 .orElseThrow(() -> new NotFoundException("id = " + id + " not found"));
-        return mapperService.toDto(entity);
     }
 
     @Override
     @Transactional
     public D update(D dto) {
         E entity = mapperService.toEntity(dto);
-        E savedEntity = repositoryService.create(entity);
-        return mapperService.toDto(savedEntity);
+        repositoryService.create(entity);
+        return mapperService.toDto(entity);
     }
 
     @Override
