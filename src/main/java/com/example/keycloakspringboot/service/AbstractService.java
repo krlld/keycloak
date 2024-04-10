@@ -1,7 +1,7 @@
 package com.example.keycloakspringboot.service;
 
 import com.example.keycloakspringboot.dto.FilterRequest;
-import com.example.keycloakspringboot.exception.NotFountException;
+import com.example.keycloakspringboot.exception.NotFoundException;
 import com.example.keycloakspringboot.mapper.MapperService;
 import com.example.keycloakspringboot.repository.RepositoryService;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +33,7 @@ public abstract class AbstractService<E, D, I> implements ServiceInterface<D, I>
     public D find(I id) {
         Optional<E> optionalEntity = repositoryService.find(id);
         E entity = optionalEntity
-                .orElseThrow(() -> new NotFountException("id = " + id + " not found"));
+                .orElseThrow(() -> new NotFoundException("id = " + id + " not found"));
         return mapperService.toDto(entity);
     }
 
