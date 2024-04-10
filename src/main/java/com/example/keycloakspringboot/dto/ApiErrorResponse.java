@@ -13,14 +13,20 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiErrorResponse {
 
-    private HttpStatus httpStatus;
+    private int value;
+
+    private HttpStatus.Series series;
+
+    private String reasonPhrase;
 
     private String message;
 
     private List<Field> fields;
 
     public ApiErrorResponse(HttpStatus httpStatus, String message) {
-        this.httpStatus = httpStatus;
+        this.value = httpStatus.value();
+        this.series = httpStatus.series();
+        this.reasonPhrase = httpStatus.getReasonPhrase();
         this.message = message;
     }
 
