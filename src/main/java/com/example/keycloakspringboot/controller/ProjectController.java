@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @Validated
 @RestController
 @RequestMapping("/projects")
@@ -31,12 +29,6 @@ public class ProjectController {
     private final ServiceInterface<ProjectDto, Long> serviceInterface;
 
     @PreAuthorize("hasAnyRole('hr')")
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<ProjectDto> findList(@RequestBody ProjectFilterDto projectFilterDto) {
-        return serviceInterface.findList(projectFilterDto);
-    }
-
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public Page<ProjectDto> findPage(@RequestBody ProjectFilterDto projectFilterDto, Pageable pageable) {
