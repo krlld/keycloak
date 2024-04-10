@@ -2,6 +2,7 @@ package com.example.keycloakspringboot.exception.handler;
 
 import com.example.keycloakspringboot.dto.ApiErrorResponse;
 import com.example.keycloakspringboot.exception.NotFoundException;
+import com.example.keycloakspringboot.exception.ServiceException;
 import javax.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -35,11 +36,27 @@ public class GlobalExceptionHandler {
         return errorResponse;
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ServiceException.class)
+    public ApiErrorResponse handleServiceException(ServiceException e) {
+        String message = e.getMessage();
+        log.warn(message);
+        return new ApiErrorResponse(HttpStatus.BAD_REQUEST, message);
+    }
+
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)
     public ApiErrorResponse handleNotFoundException(NotFoundException e) {
         String message = e.getMessage();
         log.warn(message);
         return new ApiErrorResponse(HttpStatus.NOT_FOUND, message);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(RuntimeException.class)
+    public ApiErrorResponse handleRuntimeException(RuntimeException e) {
+        String message = e.getMessage();
+        log.warn(message);
+        return new ApiErrorResponse(HttpStatus.BAD_REQUEST, message);
     }
 }
