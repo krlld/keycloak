@@ -7,6 +7,8 @@ import com.example.keycloakspringboot.service.AuthenticationService;
 import com.example.keycloakspringboot.service.KeycloakFeignClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -24,20 +26,23 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) {
-        return keycloakFeignClient.authenticate(
-                "password",
-                clientId,
-                authenticationRequest.getUsername(),
-                authenticationRequest.getPassword()
-        );
+        MultiValueMap<String, String> requestParams = new LinkedMultiValueMap<>();
+        requestParams.add("grant_type", "password");
+        requestParams.add("client_id", clientId);
+        requestParams.add("username", authenticationRequest.getUsername());
+        requestParams.add("password", authenticationRequest.getPassword());
+
+        return keycloakFeignClient.authenticate(requestParams);
     }
 
     @Override
     public AuthenticationResponse refresh(RefreshRequest refreshRequest) {
-        return keycloakFeignClient.refreshToken(
-                "refresh_token",
-                clientId,
-                refreshRequest.getRefreshToken()
-        );
+
+        MultiValueMap<String, String> requestParams = new LinkedMultiValueMap<>();
+        requestParams.add("grant_type", "refresh_token");
+        requestParams.add("client_id", clientId);
+        requestParams.add("refresh_token", refreshRequest.getRefreshToken());
+
+        return keycloakFeignClient.refreshToken(requestParams);
     }
 }
