@@ -1,24 +1,29 @@
 package com.example.keycloakspringboot.aop;
 
+import com.example.keycloakspringboot.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Aspect
 @Component
-public class RepositoryExceptionHandlerAspect {
+public class ServiceExceptionHandlerAspect {
 
     @Around("execution(* com.example.keycloakspringboot.service.ServiceInterface.*(..))")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         try {
             return joinPoint.proceed();
+        } catch (DataAccessException e) {
+            log.warn(e.getMessage());
+            throw new ServiceException(e);
         } catch (Exception e) {
-            e.getMessage();
-            e.printStackTrace();
-            return null;
+            String message = "Something wrong";
+            log.warn(message);
+            return new RuntimeException(message);
         }
     }
 
