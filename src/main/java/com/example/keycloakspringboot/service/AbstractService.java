@@ -23,9 +23,10 @@ public abstract class AbstractService<E, D, I> implements ServiceInterface<D, I>
     @Override
     @Transactional
     public D create(D dto) {
-        E entity = mapperService.toEntity(dto);
-        E savedEntity = repositoryService.create(entity);
-        return mapperService.toDto(savedEntity);
+        throw new RuntimeException("vfvf");
+//        E entity = mapperService.toEntity(dto);
+//        E savedEntity = repositoryService.create(entity);
+//        return mapperService.toDto(savedEntity);
     }
 
     @Override
