@@ -7,7 +7,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=1234
       - SPRING_FLYWAY_PASSWORD=1234
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI=http://keycloak:${KEYCLOAK_PORT}/realms/${KEYCLOAK_REALM}
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI=http://keycloak:${KEYCLOAK_PORT:-8282}/realms/${KEYCLOAK_REALM:-hrm-realm}
     depends_on:
       - db
       - keycloak
