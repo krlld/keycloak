@@ -1,4 +1,4 @@
-version: '3.9'
+version: '3'
 
 services:
   keycloak-postgres:
@@ -14,7 +14,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
-      start_period: 5s
     ports:
       - '${KC_POSTGRES_PORT_MAPPING:-5435}:5432'
     deploy:
@@ -42,7 +41,6 @@ services:
         condition: service_healthy
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://0.0.0.0:8080/realms/master" ]
-      start_period: 10s
       interval: 30s
       retries: 3
       timeout: 5s
