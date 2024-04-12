@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   keycloak-postgres:
     image: 'library/postgres:${KC_POSTGRES_IMAGE_TAG:-latest}'
