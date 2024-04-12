@@ -1,4 +1,17 @@
 services:
+  app:
+    build: .
+    container_name: hrm
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/hrm
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1234
+      - SPRING_FLYWAY_PASSWORD=1234
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+
   keycloak-postgres:
     image: 'library/postgres:${KC_POSTGRES_IMAGE_TAG:-latest}'
     container_name: '${POSTGRES_CONTAINER_NAME:-postgres}'
